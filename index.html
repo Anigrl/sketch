@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Etch-a-Sketch</title>
+</head>
+
+<body>
+    <button id="prompt">make grid</button>
+    <div class="container">
+
+    </div>
+
+    <script>
+        console.log("hello")
+
+        const container = document.querySelector(".container")
+        const homMuchDiv = 16;
+
+        function getRandomColor(){
+            const red = Math.floor(Math.random()*256);
+            const green= Math.floor(Math.random()*256);
+            const blue = Math.floor(Math.random()*256);
+            // console.log(red,green,blue);
+
+            return `rgb(${red},${green},${blue})`;
+
+            
+        }
+          
+         getRandomColor()
+
+        for (let i = 1; i <=homMuchDiv*homMuchDiv; i++) {
+            let square = document.createElement('div');
+            square.classList.add('cell');
+            
+            container.appendChild(square)
+            // console.log(i)
+            
+        }
+
+        const cellItems = document.querySelectorAll('.cell');
+
+        cellItems.forEach((item,index)=>{
+            item.addEventListener('mouseenter',()=>{
+                let rgbColor = getRandomColor();
+                item.style.backgroundColor = rgbColor;
+                // console.log(rgbColor)
+                 
+            })
+            item.addEventListener('mouseleave',()=>{
+                setTimeout(() => {
+                    item.style.backgroundColor = 'transparent';
+                    
+                }, 500);
+
+                // item.classList.remove('hovered');
+            })
+        })
+        // console.log(cellItems)
+        
+        // console.log(container)
+    </script>
+</body>
+
+</html>
