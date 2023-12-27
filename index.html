@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <button id="prompt">make grid</button>
+    <button class="prompt">make grid</button>
+
     <div class="container">
 
     </div>
@@ -17,52 +18,62 @@
     <script>
         console.log("hello")
 
-        const container = document.querySelector(".container")
-        const homMuchDiv = 16;
+        const container = document.querySelector(".container");
+        const promptAsk = document.querySelector(".prompt");
+        // console.log(promptAsk)
 
-        function getRandomColor(){
-            const red = Math.floor(Math.random()*256);
-            const green= Math.floor(Math.random()*256);
-            const blue = Math.floor(Math.random()*256);
+
+
+
+        function getRandomColor() {
+            const red = Math.floor(Math.random() * 256);
+            const green = Math.floor(Math.random() * 256);
+            const blue = Math.floor(Math.random() * 256);
             // console.log(red,green,blue);
 
             return `rgb(${red},${green},${blue})`;
-
-            
         }
-          
-         getRandomColor()
+     
 
-        for (let i = 1; i <=homMuchDiv*homMuchDiv; i++) {
-            let square = document.createElement('div');
-            square.classList.add('cell');
-            
-            container.appendChild(square)
-            // console.log(i)
-            
-        }
 
-        const cellItems = document.querySelectorAll('.cell');
+        const askGrid = () => {
+            const makeGrid = prompt("enter a no of cells per side")
+            const gridSize = parseInt(makeGrid);
+            // console.log(makeGrid)
 
-        cellItems.forEach((item,index)=>{
-            item.addEventListener('mouseenter',()=>{
-                let rgbColor = getRandomColor();
-                item.style.backgroundColor = rgbColor;
-                // console.log(rgbColor)
-                 
-            })
-            item.addEventListener('mouseleave',()=>{
-                setTimeout(() => {
-                    item.style.backgroundColor = 'transparent';
-                    
-                }, 500);
+            if (!isNaN(gridSize) && gridSize > 0 && gridSize < 100) {
+                createGrid(gridSize);
 
-                // item.classList.remove('hovered');
-            })
-        })
-        // console.log(cellItems)
+            }
+            else {
+                alert("please eneter a no. between 1 and 100");
+            }
+        };
         
-        // console.log(container)
+        const createGrid = (size) => {
+            container.innerHTML = ''; // Clear previous grid
+
+            for (let i = 1; i <= size * size; i++) {
+                let square = document.createElement('div');
+                square.classList.add('cell');
+                square.style.width = `calc(100% / ${size})`;
+                container.appendChild(square);
+
+                square.addEventListener('mouseenter', () => {
+                    square.style.backgroundColor = getRandomColor();
+                });
+
+                square.addEventListener('mouseleave', () => {
+                    setTimeout(() => {
+                        square.style.backgroundColor = 'transparent';
+                    }, 500);
+                });
+            }
+        };
+ 
+
+        promptAsk.addEventListener('click', askGrid);
+
     </script>
 </body>
 
